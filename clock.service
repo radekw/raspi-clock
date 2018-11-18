@@ -1,0 +1,19 @@
+[Unit]
+Description=Raspberry Pi Clock
+Requires=network.target network-online.target ntp.service
+After=network.target network-online.target ntp.service
+Wants=network-online.target ntp.service
+
+[Service]
+Type=simple
+User=root
+Group=root
+WorkingDirectory=/opt/raspi-clock
+ExecStart=/opt/raspi-clock/clock.py
+KillSignal=SIGINT
+StandardOutput=journal
+StandardError=journal
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
